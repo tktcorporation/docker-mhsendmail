@@ -39,5 +39,5 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: latest, ${{ needs.check-release.outputs.target-release }}
+          tags: tktcorporation/mhsendmail:latest, tktcorporation/mhsendmail:${{ needs.check-release.outputs.target-release }}
           build_args: MHSENDMAIL_VERSION=${{ needs.check-release.outputs.target-release }}
