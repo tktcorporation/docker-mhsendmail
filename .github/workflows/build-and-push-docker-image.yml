@@ -8,6 +8,9 @@ on:
 jobs:
   check-release:
     runs-on: ubuntu-latest
+    outputs:
+      target-release: ${{ steps.mhsendmail.outputs.release }}
+      self-release: ${{ steps.self.outputs.release }}
     steps:
       - id: mhsendmail
         uses: pozetroninc/github-action-get-latest-release@v0.5.0
@@ -22,7 +25,9 @@ jobs:
 
   build-and-push:
     runs-on: ubuntu-latest
-    if: ${{ jobs.check-release.steps.mhsendmail.outputs.release }} != ${{ jobs.check-release.steps.self.outputs.release }}
+    needs:
+      - check-release
+    if: ${{ needs.check-release.outputs.target-release }} != ${{ needs.check-release.outputs.self-release }}
     steps:
       - uses: actions/checkout@v3
       - name: Login to DockerHub
@@ -34,5 +39,5 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: latest, ${{ jobs.check-release.steps.mhsendmail.outputs.release }}
-          build_args: MHSENDMAIL_VERSION=${{ jobs.check-release.steps.mhsendmail.outputs.release }}
+          tags: latest, ${{ needs.check-release.outputs.target-release }}
+          build_args: MHSENDMAIL_VERSION=${{ needs.check-release.outputs.target-release }}
