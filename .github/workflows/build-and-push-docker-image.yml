@@ -58,13 +58,15 @@ jobs:
       - build-and-push
     steps:
       - uses: actions/checkout@v3
-       - name: Create Tag
-         id: create-tag
-         run: |
-           echo ${{ needs.check-release.outputs.target-release }} > TAG_NAME
-           git tag $(cat TAG_NAME)
-           git push origin $(cat TAG_NAME)
-           echo "::set-output name=tag-name::$(cat TAG_NAME)"
+
+      - name: Create Tag
+        id: create-tag
+        run: |
+          echo ${{ needs.check-release.outputs.target-release }} > TAG_NAME
+          git tag $(cat TAG_NAME)
+          git push origin $(cat TAG_NAME)
+          echo "::set-output name=tag-name::$(cat TAG_NAME)"
+
        - name: Create Release
          id: create-release
          uses: actions/create-release@v1
