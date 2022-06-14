@@ -47,7 +47,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags:
-            - ${{ secrets.DOCKERHUB_USERNAME }}/mhsendmail:latest
-            - ${{ secrets.DOCKERHUB_USERNAME }}/mhsendmail:${{ needs.check-release.outputs.target-release }}
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/mhsendmail:latest,
+            ${{ secrets.DOCKERHUB_USERNAME }}/mhsendmail:${{ needs.check-release.outputs.target-release }}
           build_args: MHSENDMAIL_VERSION=${{ needs.check-release.outputs.target-release }}
