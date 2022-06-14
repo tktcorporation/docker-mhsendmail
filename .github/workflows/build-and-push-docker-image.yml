@@ -67,14 +67,14 @@ jobs:
           git push origin $(cat TAG_NAME)
           echo "::set-output name=tag-name::$(cat TAG_NAME)"
 
-       - name: Create Release
-         id: create-release
-         uses: actions/create-release@v1
-         env:
-           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-         with:
-           tag_name: ${{ steps.create-tag.outputs.tag-name }}
-           release_name: Release ${{ steps.create-tag.outputs.tag-name }}
-           body: The image was pushed to DockerHub
-           draft: false
-           prerelease: false
+      - name: Create Release
+        id: create-release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.create-tag.outputs.tag-name }}
+          release_name: Release ${{ steps.create-tag.outputs.tag-name }}
+          body: The image was pushed to DockerHub
+          draft: false
+          prerelease: false
