@@ -51,11 +51,3 @@ jobs:
             ${{ secrets.DOCKERHUB_USERNAME }}/mhsendmail:latest,
             ${{ secrets.DOCKERHUB_USERNAME }}/mhsendmail:${{ needs.check-release.outputs.target-release }}
           build_args: MHSENDMAIL_VERSION=${{ needs.check-release.outputs.target-release }}
-
-      - name: Update repo description
-        uses: peter-evans/dockerhub-description@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-          repository: ${{ secrets.DOCKERHUB_USERNAME }}/mhsendmail
-          short-description: ${{ github.event.repository.description }}
