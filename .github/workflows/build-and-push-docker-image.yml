@@ -1,8 +1,9 @@
 name: 'Build and Push Docker Image'
 on:
-  repository_dispatch:
+  workflow_dispatch:
   schedule:
-    interval: 'weekly'
+    # weekly
+    - cron: '0 0 * * 0'
 
 jobs:
   check-release:
