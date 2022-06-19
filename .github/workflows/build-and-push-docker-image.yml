@@ -30,6 +30,10 @@ jobs:
     if: ${{ needs.check-release.outputs.target-release }} != ${{ needs.check-release.outputs.self-release }}
     steps:
       - uses: actions/checkout@v3
+      - name: echo releases
+        run: |
+          echo target-release:${{ needs.check-release.outputs.target-release }}
+          echo self-release:${{ needs.check-release.outputs.self-release }}
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
