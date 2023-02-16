@@ -13,13 +13,13 @@ jobs:
       self-release: ${{ steps.self.outputs.release }}
     steps:
       - id: mhsendmail
-        uses: pozetroninc/github-action-get-latest-release@v0.6.0
+        uses: pozetroninc/github-action-get-latest-release@v0.7.0
         with:
           owner: mailhog
           repo: mhsendmail
           excludes: prerelease, draft
       - id: self
-        uses: pozetroninc/github-action-get-latest-release@v0.6.0
+        uses: pozetroninc/github-action-get-latest-release@v0.7.0
         with:
           repository: ${{ github.repository }}
 
